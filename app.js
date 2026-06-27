@@ -727,7 +727,8 @@ async function addReservation( event ) {
         } );
 
       if ( error ) {
-        savedLocally = true;
+        console.error( "Supabase insert error:", error );
+        throw new Error( `Ошибка базы: ${error.message}` );
       }
     }
 
