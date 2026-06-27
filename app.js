@@ -95,7 +95,7 @@ const CATEGORY_DETAILS = {
 const CATEGORY_ORDER = [ "gifts", "sweets" ];
 
 function prefersReducedMotion( ) {
-  return window.matchMedia( "(prefers-reduced-motion: reduce)" ).matches;
+  return window.matchMedia( "(prefers-reduced-motion: reduce), (max-width: 720px)" ).matches || navigator.connection?.saveData === true;
 }
 
 function canUseHoverEffects( ) {

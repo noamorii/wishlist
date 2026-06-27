@@ -15,7 +15,7 @@
   --gold: #ffd166;
   --danger: #ff5578;
   --danger-soft: rgba(255, 85, 120, 0.14);
-  --browser-chrome: #11162f;
+  --browser-chrome: #070914;
   --glow-cyan: 0 0 22px rgba(41, 244, 255, 0.45), 0 0 58px rgba(41, 244, 255, 0.18);
   --glow-pink: 0 0 24px rgba(255, 79, 216, 0.44), 0 0 70px rgba(255, 79, 216, 0.18);
   --shadow-small: 0 16px 42px rgba(0, 0, 0, 0.3);
@@ -2770,5 +2770,126 @@ dialog[open] .modal-card {
   .revealable {
     opacity: 1;
     transform: none;
+  }
+}
+
+
+@media (max-width: 720px) {
+  :root {
+    color-scheme: dark;
+    --shadow-small: 0 10px 28px rgba(0, 0, 0, 0.24);
+    --shadow-large: 0 20px 54px rgba(0, 0, 0, 0.34);
+  }
+
+  html,
+  body {
+    background: #070914;
+  }
+
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  body::before,
+  .grid-noise {
+    display: none;
+  }
+
+  .page-shell {
+    width: 100%;
+    padding: 12px 12px 36px;
+  }
+
+  .hero {
+    border-radius: 24px;
+    padding: 32px 18px 24px;
+    background: linear-gradient(155deg, #0d1328 0%, #101a2d 55%, #191027 100%);
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero::before {
+    opacity: 0.18;
+    mask-image: none;
+  }
+
+  .hero-title-glow,
+  .section-heading h2,
+  .gift-box,
+  .hero-sparkles span,
+  .hero-paper-trails span,
+  .status-badge,
+  .gift-card,
+  .modal-card {
+    animation: none !important;
+  }
+
+  .hero-title-glow {
+    filter: none;
+    text-shadow: 0 0 20px rgba(41, 244, 255, 0.22);
+  }
+
+  .hero__visual {
+    min-height: 290px;
+  }
+
+  .hero-stage {
+    min-height: 290px;
+  }
+
+  .hero-gift-scene {
+    box-shadow: none;
+  }
+
+  .filter-bar,
+  .gift-card,
+  .modal-card,
+  .gift-status-panel,
+  .toast,
+  .hero__wish-total {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .filter-bar {
+    top: env(safe-area-inset-top);
+    background: rgba(7, 9, 20, 0.96);
+  }
+
+  .gift-card {
+    contain: layout paint;
+    content-visibility: auto;
+    contain-intrinsic-size: 580px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.26);
+  }
+
+  .gift-card__media img,
+  .modal-media img {
+    transform: translateZ(0);
+  }
+
+  .modal::backdrop {
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .modal-card--gift {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .celebration-layer {
+    display: none;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .card-button,
+  .card-secondary-button,
+  .secondary-action-button,
+  .filter-button {
+    transition: background-color 120ms ease, border-color 120ms ease, opacity 120ms ease;
   }
 }

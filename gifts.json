@@ -5,11 +5,11 @@
     "title": "Тортик на заказ в виде свечи",
     "description": "Честно мечтаю о таком торте. Было бы идеально с начинкой ваниль/пломбир с малиной. Я оставила ссылку на девочку, которая офигенно делает тортики, и она сказала, что у нее получится такой сделать",
     "price": 1500,
-    "image": "assets/candle-cake-2.png",
+    "image": "assets/candle-cake-2.webp",
     "images": [
-      "assets/candle-cake-1.png",
-      "assets/candle-cake-2.png",
-      "assets/candle-cake-3.png"
+      "assets/candle-cake-1.webp",
+      "assets/candle-cake-2.webp",
+      "assets/candle-cake-3.webp"
     ],
     "imageFit": "cover",
     "link": "https://www.instagram.com/cakecheeky?igsh=YWYybHR0ZDBnc2Z2",
