@@ -1104,17 +1104,24 @@ button:disabled {
   transition: opacity 0.24s ease;
 }
 
-.gift-card:hover {
-  border-color: rgba(41, 244, 255, 0.28);
-  box-shadow: 0 24px 76px rgba(0, 0, 0, 0.42), 0 0 24px rgba(41, 244, 255, 0.18);
-}
+@media (hover: hover) and (pointer: fine) {
+  .gift-card:hover {
+    border-color: rgba(41, 244, 255, 0.28);
+    box-shadow: 0 24px 76px rgba(0, 0, 0, 0.42), 0 0 24px rgba(41, 244, 255, 0.18);
+  }
 
-.gift-card:hover::after {
-  opacity: 1;
-}
+  .gift-card:hover::after {
+    opacity: 1;
+  }
 
-.gift-card:hover::before {
-  opacity: 1;
+  .gift-card:hover::before {
+    opacity: 1;
+  }
+
+  .gift-card:hover .gift-card__image {
+    transform: scale(1.012);
+    filter: saturate(1.35) contrast(1.12);
+  }
 }
 
 .gift-card__media {
@@ -1162,11 +1169,6 @@ button:disabled {
   object-fit: contain;
   padding: 10px;
   background: #edf0ef;
-}
-
-.gift-card:hover .gift-card__image {
-  transform: scale(1.012);
-  filter: saturate(1.35) contrast(1.12);
 }
 
 .gift-card__status {

@@ -98,6 +98,10 @@ function prefersReducedMotion( ) {
   return window.matchMedia( "(prefers-reduced-motion: reduce)" ).matches;
 }
 
+function canUseHoverEffects( ) {
+  return window.matchMedia( "(hover: hover) and (pointer: fine)" ).matches;
+}
+
 function money( value ) {
   if ( value === null || value === undefined || value === "" ) {
     return "Цена не указана";
@@ -643,7 +647,7 @@ function observeRevealElements( root = document ) {
 }
 
 function setupCardSpotlight( ) {
-  if ( prefersReducedMotion( ) ) {
+  if ( prefersReducedMotion( ) || !canUseHoverEffects( ) ) {
     return;
   }
 
@@ -664,7 +668,7 @@ function setupHeroTilt( ) {
   const hero = document.querySelector( ".hero" );
   const stage = document.querySelector( ".hero-stage" );
 
-  if ( !hero || !stage || prefersReducedMotion( ) ) {
+  if ( !hero || !stage || prefersReducedMotion( ) || !canUseHoverEffects( ) ) {
     return;
   }
 
