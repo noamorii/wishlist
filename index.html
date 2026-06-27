@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070914" />
+  <title>Мой birthday wishlist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="grid-noise" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <main id="top">
+      <section class="hero">
+        <div class="hero__content">
+          <span class="eyebrow">Birthday wishlist</span>
+          <h1>
+            <span>Мой</span>
+            <span class="hero-title-glow">Wishlist</span>
+          </h1>
+          <p>Любое внимание с вашей стороны будет для меня приятно, но если вы хотите знать, что мне 100 процентов понравится и я буду очень рада, то вот мой списочек.</p>
+          <div class="hero__actions">
+            <a class="primary-button hero__button" href="#wishlist">Смотреть wishlist</a>
+            <button class="secondary-button" id="openGuideButtonHero" type="button">Как это работает</button>
+          </div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero-stage">
+            <div class="hero-gift-scene">
+              <div class="gift-box">
+                <span class="gift-box__lid"></span>
+                <span class="gift-box__body"></span>
+                <span class="gift-box__ribbon gift-box__ribbon--vertical"></span>
+                <span class="gift-box__ribbon gift-box__ribbon--horizontal"></span>
+                <span class="gift-box__bow gift-box__bow--left"></span>
+                <span class="gift-box__bow gift-box__bow--right"></span>
+                <span class="gift-box__knot"></span>
+                <span class="gift-box__shine"></span>
+              </div>
+              <div class="hero-wish-tag">
+                <span>birthday</span>
+                <strong>28.06</strong>
+              </div>
+              <div class="hero-wish-tag hero-wish-tag--party">
+                <span>празднование</span>
+                <strong>05.07</strong>
+                <small>в 7 вечера</small>
+              </div>
+              <div class="hero-sparkles">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div class="hero-paper-trails">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wishlist-section" id="wishlist">
+        <div class="section-heading">
+          <div class="summary" id="summary" aria-live="polite"></div>
+        </div>
+
+        <div class="filter-bar" aria-label="Фильтр подарков">
+          <button class="filter-button filter-button--active" data-filter="all" type="button">Все</button>
+          <button class="filter-button" data-filter="empty" type="button">Свободные</button>
+          <button class="filter-button" data-filter="selected" type="button">Уже выбрали</button>
+        </div>
+
+        <section class="gift-list" id="gifts" aria-live="polite" aria-busy="true">
+          <div class="gift-grid">
+            <article class="skeleton-card"></article>
+            <article class="skeleton-card"></article>
+            <article class="skeleton-card"></article>
+          </div>
+        </section>
+
+        <section class="empty-state" id="emptyState" hidden>
+          <div class="empty-state__icon">♡</div>
+          <h3>Здесь пока пусто</h3>
+          <p>Попробуй другой фильтр.</p>
+        </section>
+
+        <section class="error-state" id="errorState" hidden>
+          <div class="empty-state__icon">!</div>
+          <h3>Не получилось загрузить wishlist</h3>
+          <p id="errorMessage">Проверь подключение к Supabase и попробуй снова.</p>
+          <button class="secondary-button" id="retryButton" type="button">Попробовать ещё раз</button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="modal" id="giftModal" aria-labelledby="modalTitle">
+    <article class="modal-card modal-card--gift">
+      <button class="icon-button modal-close" data-close-dialog="giftModal" type="button" aria-label="Закрыть окно">×</button>
+      <div class="modal-media">
+        <img id="modalImage" alt="" />
+        <span class="status-badge modal-media__badge" id="modalBadge"></span>
+        <div class="image-carousel-controls" id="imageCarouselControls" hidden>
+          <button class="image-carousel-button" id="previousImageButton" type="button" aria-label="Предыдущее фото">‹</button>
+          <div class="image-carousel-dots" id="imageCarouselDots" aria-label="Фото подарка"></div>
+          <button class="image-carousel-button" id="nextImageButton" type="button" aria-label="Следующее фото">›</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-heading">
+          <div>
+            <p class="modal-kicker" id="modalPrice"></p>
+            <h2 id="modalTitle"></h2>
+          </div>
+          <a class="external-link" id="modalLink" target="_blank" rel="noreferrer">Открыть ссылку ↗</a>
+        </div>
+        <p class="modal-description" id="modalDescription"></p>
+
+        <section class="gift-status-panel">
+          <div class="gift-status-panel__icon">♡</div>
+          <div>
+            <strong id="giftStatusTitle"></strong>
+            <p id="giftStatusText"></p>
+          </div>
+        </section>
+
+        <form class="booking-form" id="bookingForm">
+          <label class="field-label" for="guestName">Как тебя зовут?</label>
+          <input class="text-input" id="guestName" type="text" inputmode="text" enterkeyhint="done" autocapitalize="words" spellcheck="false" maxlength="60" placeholder="Например, Аня" autocomplete="name" required />
+          <button class="primary-button primary-button--wide booking-submit" id="confirmBookingButton" type="submit">Хочу подарить</button>
+          <p class="privacy-note">Имя можно будет удалить в списке участников.</p>
+        </form>
+
+        <div class="modal-footer-actions modal-footer-actions--single">
+          <button class="secondary-action-button" id="participantsButton" type="button">Список участников</button>
+        </div>
+      </div>
+    </article>
+  </dialog>
+
+  <dialog class="modal modal--small" id="participantsModal" aria-labelledby="participantsModalTitle">
+    <article class="modal-card compact-modal">
+      <button class="icon-button modal-close" data-close-dialog="participantsModal" type="button" aria-label="Закрыть окно">×</button>
+      <div class="compact-modal__icon">♡</div>
+      <p class="modal-kicker">Участники</p>
+      <h2 id="participantsModalTitle">Кто участвует</h2>
+      <p class="participants-subtitle" id="participantsGiftTitle"></p>
+      <ul class="participant-list" id="participantsList"></ul>
+      <button class="secondary-button secondary-button--wide" data-close-dialog="participantsModal" type="button">Закрыть</button>
+    </article>
+  </dialog>
+
+  <dialog class="modal modal--small" id="guideModal" aria-labelledby="guideModalTitle">
+    <article class="modal-card compact-modal">
+      <button class="icon-button modal-close" data-close-dialog="guideModal" type="button" aria-label="Закрыть окно">×</button>
+      <p class="modal-kicker">Всё просто</p>
+      <h2 id="guideModalTitle">Как работает wishlist</h2>
+      <ol class="guide-list">
+        <li><span>1</span><div><strong>Выбери подарок</strong><p>Открой карточку и посмотри детали.</p></div></li>
+        <li><span>2</span><div><strong>Нажми «Хочу подарить»</strong><p>Введи своё имя. Несколько человек могут выбрать один подарок.</p></div></li>
+        <li><span>3</span><div><strong>Нужно удалить имя?</strong><p>Открой список участников и нажми крестик рядом с именем.</p></div></li>
+      </ol>
+      <button class="primary-button primary-button--wide" data-close-dialog="guideModal" type="button">Понятно</button>
+    </article>
+  </dialog>
+
+  <div class="celebration-layer" id="celebrationLayer" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast__icon" id="toastIcon">✓</span>
+    <span id="toastText"></span>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="gifts-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
