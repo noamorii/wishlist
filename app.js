@@ -667,26 +667,44 @@ function setupCardSpotlight( ) {
 function setupHeroTilt( ) {
   const hero = document.querySelector( ".hero" );
   const stage = document.querySelector( ".hero-stage" );
+  const glow = document.querySelector( ".hero-cursor-glow" );
 
-  if ( !hero || !stage || prefersReducedMotion( ) || !canUseHoverEffects( ) ) {
+  if ( !hero || !stage || !glow || prefersReducedMotion( ) || !canUseHoverEffects( ) ) {
     return;
   }
 
-  hero.addEventListener( "pointermove", event => {
-    const rect = hero.getBoundingClientRect( );
-    const x = ( event.clientX - rect.left ) / rect.width;
-    const y = ( event.clientY - rect.top ) / rect.height;
-    const tiltX = ( 0.5 - y ) * 5;
-    const tiltY = ( x - 0.5 ) * 7;
+  let frameId = 0;
+  let pointerX = 0;
+  let pointerY = 0;
 
-    hero.style.setProperty( "--hero-x", `${x * 100}%` );
-    hero.style.setProperty( "--hero-y", `${y * 100}%` );
+  const render = () => {
+    frameId = 0;
+    const rect = hero.getBoundingClientRect( );
+    const x = Math.min( 1, Math.max( 0, ( pointerX - rect.left ) / rect.width ) );
+    const y = Math.min( 1, Math.max( 0, ( pointerY - rect.top ) / rect.height ) );
+    const tiltX = ( 0.5 - y ) * 4;
+    const tiltY = ( x - 0.5 ) * 5;
+
+    glow.style.transform = `translate3d(${pointerX - rect.left - 280}px, ${pointerY - rect.top - 280}px, 0)`;
     stage.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-  } );
+  };
+
+  hero.addEventListener( "pointermove", event => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+
+    if ( !frameId ) {
+      frameId = requestAnimationFrame( render );
+    }
+  }, { passive: true } );
 
   hero.addEventListener( "pointerleave", () => {
-    hero.style.setProperty( "--hero-x", "68%" );
-    hero.style.setProperty( "--hero-y", "32%" );
+    if ( frameId ) {
+      cancelAnimationFrame( frameId );
+      frameId = 0;
+    }
+
+    glow.style.transform = `translate3d(calc(68% - 280px), calc(32% - 280px), 0)`;
     stage.style.transform = "";
   } );
 }

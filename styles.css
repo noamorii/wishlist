@@ -191,8 +191,6 @@ input:focus-visible {
 
 .hero {
   position: relative;
-  --hero-x: 68%;
-  --hero-y: 32%;
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(400px, 1.05fr);
   gap: 30px;
@@ -201,11 +199,24 @@ input:focus-visible {
   border: 1px solid rgba(163, 197, 255, 0.16);
   border-radius: 30px;
   padding: 48px;
-  background:
-    radial-gradient(circle at var(--hero-x) var(--hero-y), rgba(41, 244, 255, 0.18), transparent 24rem),
-    linear-gradient(112deg, rgba(12, 18, 36, 0.98) 0%, rgba(8, 10, 25, 0.96) 46%, rgba(28, 13, 38, 0.88) 100%);
+  background: linear-gradient(112deg, rgba(12, 18, 36, 0.98) 0%, rgba(8, 10, 25, 0.96) 46%, rgba(28, 13, 38, 0.88) 100%);
   box-shadow: 0 42px 140px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.07);
   isolation: isolate;
+}
+
+.hero-cursor-glow {
+  position: absolute;
+  z-index: 0;
+  width: 560px;
+  height: 560px;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(41, 244, 255, 0.2) 0%, rgba(41, 244, 255, 0.1) 34%, transparent 70%);
+  pointer-events: none;
+  transform: translate3d(calc(68% - 280px), calc(32% - 280px), 0);
+  will-change: transform;
+  contain: strict;
 }
 
 .hero::before {
@@ -2891,5 +2902,11 @@ dialog[open] .modal-card {
   .secondary-action-button,
   .filter-button {
     transition: background-color 120ms ease, border-color 120ms ease, opacity 120ms ease;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .hero-cursor-glow {
+    display: none;
   }
 }
