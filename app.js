@@ -364,7 +364,7 @@ function updateGiftStatusText( status ) {
   document.querySelector( "#giftStatusTitle" ).textContent = getParticipantText( status.count );
   document.querySelector( "#giftStatusText" ).textContent = status.count > 0
     ? "Ты тоже можешь присоединиться. Если кто-то передумает, имя можно удалить в списке участников."
-    : "Будь первой, кто выберет этот подарок. Другие люди смогут присоединиться позже.";
+    : "Будь первым, кто выберет этот подарок. Другие люди смогут присоединиться позже.";
 }
 
 function openGiftModal( giftId ) {
