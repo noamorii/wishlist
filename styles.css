@@ -1512,6 +1512,7 @@ dialog[open] .modal-card {
 .modal-card--gift {
   display: grid;
   grid-template-columns: minmax(420px, 0.98fr) minmax(0, 1.02fr);
+  height: min(720px, calc(100dvh - 28px));
   min-height: 0;
 }
 
@@ -1810,6 +1811,52 @@ dialog[open] .modal-card {
 .secondary-action-button {
   min-height: 50px;
   font-size: 13px;
+}
+
+@media (max-height: 760px) and (min-width: 721px) {
+  .modal-card--gift {
+    height: calc(100dvh - 28px);
+  }
+
+  .modal-body {
+    padding: 28px 28px 24px;
+  }
+
+  .modal-heading {
+    gap: 12px;
+  }
+
+  .modal-heading h2 {
+    font-size: 28px;
+  }
+
+  .modal-description {
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  .gift-status-panel {
+    margin-top: 16px;
+    padding: 13px;
+  }
+
+  .booking-form {
+    margin-top: 16px;
+    padding: 15px;
+  }
+
+  .text-input {
+    min-height: 48px;
+  }
+
+  .booking-submit {
+    min-height: 52px;
+  }
+
+  .modal-footer-actions {
+    margin-top: 14px;
+    padding-top: 14px;
+  }
 }
 
 .compact-modal {
