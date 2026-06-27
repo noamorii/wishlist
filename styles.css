@@ -15,6 +15,7 @@
   --gold: #ffd166;
   --danger: #ff5578;
   --danger-soft: rgba(255, 85, 120, 0.14);
+  --browser-chrome: #11162f;
   --glow-cyan: 0 0 22px rgba(41, 244, 255, 0.45), 0 0 58px rgba(41, 244, 255, 0.18);
   --glow-pink: 0 0 24px rgba(255, 79, 216, 0.44), 0 0 70px rgba(255, 79, 216, 0.18);
   --shadow-small: 0 16px 42px rgba(0, 0, 0, 0.3);
@@ -28,16 +29,21 @@
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
+  background: var(--browser-chrome);
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   overflow-x: hidden;
+  background-color: var(--browser-chrome);
   background:
     linear-gradient(115deg, rgba(255, 79, 216, 0.12), transparent 34%),
     linear-gradient(245deg, rgba(41, 244, 255, 0.12), transparent 38%),
-    linear-gradient(180deg, #060916 0%, #0b1020 52%, #080712 100%);
+    linear-gradient(180deg, #060916 0%, #0b1020 52%, #080712 100%),
+    var(--browser-chrome);
   color: var(--ink);
   font-family: Manrope, system-ui, sans-serif;
 }
